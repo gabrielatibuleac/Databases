@@ -1,1 +1,66 @@
 
+ex. 1 
+SELECT s.lname, s.fname, g.value, p.lname
+  2  FROM students s
+  3  JOIN grades g ON s.id_stud = g.id_stud
+  4  JOIN didactic d ON g.id_course = d.id_course
+  5  JOIN profs p ON d.id_prof=p.id_prof;
+ex 2
+SELECT s.fname, s.lname FROM students s  JOIN grades g ON s.id_stud = g.id_stud JOIN courses c ON g.id_course = c.id_course WHERE g.value = 10  AND c.course_title = 'BD';
+
+ex3. SELECT p.fname AS "first name" , p.lname AS " last name" , c.course_title  FROM PROFS p JOIN didactic d ON p.id_prof=d.id_prof JOIN courses c ON d.id_course= c.id_course
+
+4.select p.lname, p.fname, c.course_title, c.year, c.sem, c.credits from
+    profs p left outer join didactic d on d.id_prof = p.id_prof
+    left outer join courses c on c.id_course = d.id_course;
+
+ 5.SELECT fname, lname, course_title, year, sem, credits
+      from profs p
+            RIGHT OUTER JOIN didactic d  ON p.id_prof = d.id_prof
+            RIGHT OUTER JOIN courses c ON d.id_course = c.id_course;
+
+6.select p.lname, p.fname, c.course_title, c.year, c.sem, c.credits from
+    profs p full outer join didactic d on d.id_prof = p.id_prof
+    full outer join courses c on c.id_course = d.id_course;
+7.   SELECT
+        s1.lname AS student1,
+        s2.lname AS student2,
+       TO_CHAR(s1.dob, 'DAY', 'NLS_DATE_LANGUAGE=ENGLISH') AS weekday_name
+  FROM students s1
+   JOIN students s2
+       ON TO_CHAR(s1.dob, 'DAY', 'NLS_DATE_LANGUAGE=ENGLISH') =
+          TO_CHAR(s2.dob, 'DAY', 'NLS_DATE_LANGUAGE=ENGLISH')
+      AND s1.id_stud < s2.id_stud
+   ORDER BY
+       TO_CHAR(s1.dob, 'D'),
+     s1.lname
+8. select c.lname || ' '|| c.fname || ' received a higher grade compared to ' || s.lname|| ' '|| s.fname || ' at '||co.course_title|| '.' as "Grade Comparison" from
+    grades g join courses co on g.id_course=co.id_course
+    join students s on s.id_stud = g.id_stud
+    join students c on c.id_stud != g.id_stud
+    join grades g2 on g2.id_stud=c.id_stud
+    where g2.value<g.value and g.id_course=g2.id_course;
+
+9. SELECT 
+    s1.LNAME  ' '  s1.FNAME AS student1,
+    s2.LNAME  ' '  s2.FNAME AS student2,
+    ABS(s1.DOB - s2.DOB) AS age_dif
+FROM 
+    students s1
+JOIN 
+    students s2
+    ON s1.ID_STUD != s2.ID_STUD
+ORDER BY 
+    age_dif ASC;
+11.
+select distinct c.id_course, c.course_title from courses c  join grades g on c.id_course = g.id_course  join students s on s.id_stud = g.id_stud                                                              
+minus                                                                                                                                                                                                           3 3 select distinct c.id_course, c.course_title from courses c  join grades g on c.id_course = g.id_course  join students s on s.id_stud = g.id_stud where g.value>8	
+12.
+SELECT DISTINCT fname,lname,s.id_stud FROM students s JOIN grades g ON s.id_stud=g.id_stud where g.value>=7 MINUS SELECT DISTINCT fname,lname,s.id_stud FROM students s JOIN grades g ON s.id_stud=g.id_stud where g.value<7
+ 13   
+SELECT S.LNAME,S.FNAME,G.VALUE,C.COURSE_TITLE,
+   TO_CHAR(G.GRADING_DATE,'DAY') AS ZI
+    FROM STUDENTS S JOIN GRADES G ON S.ID_STUD=G.ID_STUD
+    JOIN COURSES C ON C.ID_COURSE=G.ID_COURSE
+   WHERE C.COURSE_TITLE='OOP' AND G.VALUE IN (7,10) AND TRIM(TO_CHAR(G.GRADING_DATE,'DAY'))='TUESDAY'
+
