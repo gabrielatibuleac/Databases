@@ -1,1 +1,36 @@
 
+1.SELECT year, count(*) AS nr_studenti FROM students GROUP BY year;
+
+2.SELECT year, groupno, count(*) FROM students GROUP BY year, groupno ORDER BY year, groupno;
+
+3.SELECT year, groupno, COUNT(*) AS "Total studenti", COUNT(scholarship) AS "Studenti bursieri" FROM students GROUP BY year, groupno ORDER BY year, groupno;
+4.SELECT SUM(scholarship) FROM students;
+5.SELECT AVG(NVL(scholarship,0)) FROM students;
+SELECT SUM(scholarship)/COUNT(*) FROM students;
+6.select value, count(*) from grades group by value order by value desc;
+7.select to_char(grading_date,'DAY') as "day of week", count(*) as "number of grades" from grades  group by to_char(grading_date, 'DAY')  order by count(*) desc;
+8. select to_char(grading_date,'DAY') as "day of week", count(*) as "number of grades" from grades  group by to_char(grading_date, 'DAY'), to_char(grading_date,'D')  order by to_char(grading_date,'D');
+9. select s.fname,s.lname, avg(g.value) from students s join grades g on g.id_stud=s.id_stud group by g.id_stud, s.fname,s.lname order by avg(g.value) desc;
+
+10.select s.fname,s.lname, avg(g.value) from students s left outer join grades g on g.id_stud=s.id_stud group by g.id_stud, s.fname,s.lname order by avg(nvl(g.value,0)) desc;
+
+11.select s.fname,s.lname, avg(nvl(g.value,0)) from students s left outer join grades g on g.id_stud=s.id_stud group by g.id_stud, s.fname,s.lname order by avg(nvl(g.value,0)) desc;
+
+12.select s.fname,s.lname, avg(g.value) from students s join grades g on g.id_stud=s.id_stud group by g.id_stud, s.fname,s.lname having avg(g.value)>8 order by avg(g.value) desc;
+13. SELECT s.lname,MIN(g.value),MAX(g.value),AVG(g.value) FROM students s JOIN grades g ON s.id_stud = g.id_stud GROUP BY s.id_stud, s.lname HAVING MIN(g.value) >= 7;
+14. select s.fname, s.lname, avg(g.value) from students s join grades g on s.id_stud=g.id_stud group by g.id_stud, s.lname, s.fname having count(g.value)>=3;
+
+15. select s.fname, s.lname, avg(g.value) from students s join grades g on s.id_stud=g.id_stud group by g.id_stud, s.lname, s.fname having count(distinct g.value)>=3;
+16. SELECT c.course_title, MIN(value), MAX(value) FROM grades g JOIN courses c ON g.id_course=c.id_course  GROUP BY g.id_course,c.course_title;
+17.  SELECT MAX(AVG(value)) 
+FROM students s JOIN grades g on s.id_stud = g.id_stud
+GROUP BY s.id_stud;
+18.SELECT p.lname, p.fname, COUNT(value) FROM profs p 
+  LEFT JOIN didactic d ON p.id_prof=d.id_prof 
+  LEFT JOIN grades g ON d.id_course=g.id_course
+  AND g.value < 5 
+  GROUP BY p.id_prof, p.lname, p.fname;
+  19.select p.lname, p.fname, round(avg(g.value),2) from profs p join didactic d on d.id_prof=p.id_prof
+join grades g on g.id_course=d.id_course
+group by p.id_prof, p.lname, p.fname
+order by avg(g.value) desc;
