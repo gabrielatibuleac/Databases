@@ -1,1 +1,14 @@
+1. SELECT lname, fname, year, dob FROM students;
+2. SELECT DISTINCT bursa FROM studenti;
 
+SELECT DISTINCT bursa FROM studenti WHERE bursa IS NOT NULL;
+3. SELECT FNAME AS "First Name", LNAME AS "Last Name", YEAR AS "Year of Study", DOB "Date of Birth" FROM students;
+4. SELECT FNAME||' '||LNAME|| ',' ||YEAR  as "Students by year of study" FROM STUDENTS ORDER BY YEAR ASC;
+5. SELECT FNAME, LNAME, DOB FROM STUDENTS WHERE DOB BETWEEN '01-JAN-1995' AND '10-JUN-1997' ORDER BY YEAR DESC;
+7. SELECT * FROM students WHERE scholarship IS NULL;
+8. SELECT lname, fname FROM STUDENTS WHERE SCHOLARSHIP IS NOT NULL AND year IN (2, 3) ORDER BY lname, fname DESC;
+10. SELECT * FROM students WHERE lname LIKE 'P%' AND year = 1;
+11. SELECT * FROM students WHERE fname LIKE '%a%a%';
+12. SELECT * FROM students WHERE FNAME IN ('Marius','Alexandru','Ioana'); SAU SELECT * FROM students WHERE FNAME='Alexandru' OR FNAME='Ioana' OR FNAME='Marius';
+13. SELECT LNAME, FNAME FROM STUDENTS WHERE FNAME LIKE '%a%' AND FNAME NOT LIKE '%a%a%';
+14. SELECT fname, lname from profs where TRIM(lname) LIKE '%n';
